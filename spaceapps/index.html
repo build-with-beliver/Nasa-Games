@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Believers: Junior Astronaut Space Academy</title>
+  <meta name="description" content="An epic space gaming adventure training young cadets to become certified Junior Astronauts, featuring live 3D planets, missions, and the iconic Believers Minecraft-style logo.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Outfit:wght@400;500;700;800&family=VT323&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Fullscreen Live 3D Space Canvas Background -->
+  <div id="space-canvas-container" class="space-canvas-wrap"></div>
+
+  <!-- Space Overlay Grid / Cosmic Scanlines (Subtle Sci-Fi atmosphere) -->
+  <div class="cosmic-overlay"></div>
+
+  <!-- Top Astronaut Academy HUD Bar (Top Right: Settings button explicitly required) -->
+  <header id="top-astronaut-hud" class="top-hud-bar hidden">
+    <div class="hud-left">
+      <div class="cadet-avatar-badge" id="view-id-card-btn" title="View Cadet Astronaut License">
+        <img id="hud-cadet-avatar" src="assets/mascot.jpg" alt="Astronaut Cadet Avatar" class="avatar-img">
+        <div class="cadet-meta">
+          <div class="cadet-callsign"><span id="hud-cadet-name">Cadet Orion</span> <span class="badge-pill">ID CARD</span></div>
+          <div class="cadet-rank" id="hud-cadet-rank">Junior Space Cadet</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hud-center">
+      <div class="hud-stat-pill">
+        <span class="stat-icon">⭐</span>
+        <span id="hud-cadet-xp">150 XP</span>
+      </div>
+      <div class="hud-stat-pill desktop-only">
+        <span class="stat-icon">🛡️</span>
+        <span class="hud-academy-label">BELIEVERS ACADEMY</span>
+      </div>
+    </div>
+
+    <!-- Top Right Corner: Settings Button (Strictly as requested) -->
+    <div class="hud-right">
+      <button id="global-settings-btn" class="settings-gear-btn" title="System Settings">
+        <span class="gear-icon">⚙️</span>
+        <span class="gear-label">SETTINGS</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ==================== SCREEN 1: LOGIN INTERFACE ==================== -->
+  <!-- "at first when they open they should see a login interface login with number or play as a guest (no number required for guest)" -->
+  <section id="view-login" class="view-screen active">
+    <div class="login-container">
+      <div class="login-glass-card">
+        <div class="login-mascot-wrap">
+          <img src="assets/mascot.jpg" alt="Junior Astronaut Mascot" class="mascot-img pulse-float">
+          <div class="login-badge-ribbon">ASTRONAUT ENLISTMENT</div>
+        </div>
+
+        <h1 class="login-title">SPACE CADET PORTAL</h1>
+        <p class="login-subtitle">Train to become a certified Junior Astronaut with the Believers Space Program!</p>
+
+        <!-- Option A: Login with Number -->
+        <form id="phone-login-form" class="login-form">
+          <div class="form-group">
+            <label for="cadet-phone-input">📱 CADET PHONE NUMBER</label>
+            <div class="input-with-prefix">
+              <span class="phone-prefix">+1</span>
+              <input type="tel" id="cadet-phone-input" placeholder="(555) 019-2834" autocomplete="tel">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="cadet-name-input">👨‍🚀 ASTRONAUT CALLSIGN (NAME)</label>
+            <input type="text" id="cadet-name-input" placeholder="e.g. Leo Starfall, Commander Maya" maxlength="24">
+          </div>
+
+          <button type="submit" id="phone-submit-btn" class="cyber-btn primary full-width">
+            <span>🚀 TRANSMIT & LOGIN WITH NUMBER</span>
+          </button>
+        </form>
+
+        <div class="divider-or">
+          <span>OR</span>
+        </div>
+
+        <!-- Option B: Play as Guest (No Number Required!) -->
+        <div class="guest-login-zone">
+          <button id="guest-login-btn" class="cyber-btn guest-btn full-width">
+            <span class="guest-icon">⭐</span>
+            <span>PLAY AS GUEST (NO NUMBER REQUIRED)</span>
+          </button>
+          <div class="guest-hint">Instant access for young astronauts! No registration or phone needed.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SCREEN 2: BELIEVERS MINECRAFT-STYLE LOGO REVEAL ==================== -->
+  <!-- "after log in they should see our logo called Belivers similar to the logo of minecraft" -->
+  <section id="view-logo-splash" class="view-screen">
+    <div class="believers-reveal-card">
+      <div class="minecraft-logo-wrapper">
+        <!-- Iconic 3D Minecraft-Style Believers Logo Image -->
+        <div class="logo-image-frame">
+          <img src="assets/believers-logo.jpg" alt="BELIEVERS Minecraft-Style Logo" class="believers-main-logo">
+        </div>
+
+        <!-- Classic Yellow Bouncing Splash Text (Iconic Minecraft Easter-Egg Style) -->
+        <div class="minecraft-splash-wrap">
+          <span id="minecraft-splash-text" class="yellow-minecraft-splash">Space Cadets assemble!</span>
+        </div>
+      </div>
+
+      <div class="academy-subtitle-tag">JUNIOR ASTRONAUT ACADEMY</div>
+
+      <div class="splash-action-zone">
+        <button id="enter-academy-btn" class="cyber-btn primary huge-btn pulse">
+          <span>🚀 ENTER SPACE ACADEMY ◄</span>
+        </button>
+        <div class="splash-countdown-hint">Click to launch or standby for automatic warp...</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SCREEN 3: MAIN MENU ==================== -->
+  <!-- "after that the menu should look like there would be a option called play and there should be seeting option at top right corner .inthat menu bacjground should be live nd should show space with planets stars etc" -->
+  <section id="view-main-menu" class="view-screen">
+    <div class="main-menu-container">
+      
+      <!-- Minecraft-Style Believers Academy Header Title -->
+      <div class="menu-header-logo">
+        <div class="minecraft-mini-logo">
+          <img src="assets/believers-logo.jpg" alt="Believers Logo" class="mini-logo-img">
+        </div>
+        <div class="menu-academy-badge">JUNIOR ASTRONAUT TRAINING COMMAND</div>
+      </div>
+
+      <!-- Center Big Glowing PLAY Button -->
+      <div class="center-play-zone">
+        <button id="main-play-btn" class="mega-play-btn">
+          <span class="play-flare"></span>
+          <span class="play-icon">▶</span>
+          <span class="play-text">PLAY</span>
+          <span class="play-subtext">START TRAINING MISSIONS</span>
+        </button>
+      </div>
+
+      <!-- Quick Navigation Action Bar -->
+      <div class="menu-action-grid">
+        <button id="quick-missions-btn" class="menu-pill-btn" onclick="window.spaceApp.switchView('mission-select')">
+          <span class="btn-icon">🎯</span>
+          <span>FLIGHT MISSIONS</span>
+        </button>
+        <button id="view-license-menu-btn" class="menu-pill-btn" onclick="window.spaceApp.showCadetLicense()">
+          <span class="btn-icon">📜</span>
+          <span>ASTRONAUT LICENSE</span>
+        </button>
+        <button id="view-badges-menu-btn" class="menu-pill-btn" onclick="document.getElementById('badges-drawer-modal').classList.remove('hidden')">
+          <span class="btn-icon">🏅</span>
+          <span>MISSION BADGES</span>
+        </button>
+      </div>
+
+      <!-- Live Planet Telemetry Discovery Strip (Clickable in 3D background!) -->
+      <div class="live-orbit-indicator">
+        <span class="radar-dot"></span>
+        <span>LIVE SPACE ENVIRONMENT ACTIVE • CLICK ANY PLANET TO SCAN TELEMETRY</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== SCREEN 4: MISSIONS SELECTION ==================== -->
+  <section id="view-mission-select" class="view-screen">
+    <div class="missions-container">
+      <div class="missions-header">
+        <button id="missions-back-btn" class="cyber-btn back-btn">◄ BACK TO MENU</button>
+        <div class="missions-title-wrap">
+          <h2>ASTRONAUT FLIGHT ACADEMY</h2>
+          <p>Complete all 4 training trials to earn your official Junior Astronaut Wings!</p>
+        </div>
+      </div>
+
+      <div class="missions-grid">
+        <!-- Mission 1: Lander -->
+        <div class="mission-card" data-mission="lander">
+          <div class="mission-status-pill">TRIAL 01</div>
+          <div class="mission-card-icon">🚀</div>
+          <h3 class="mission-name">Lunar Lander & Station Docking</h3>
+          <p class="mission-desc">Control thrusters and lunar gravity to dock smoothly at Space Station Alpha through drifting asteroids.</p>
+          <div class="mission-meta-strip">
+            <span class="reward">+250 XP</span>
+            <span class="badge-tag">🏅 Docking Master</span>
+          </div>
+          <button class="card-launch-btn">LAUNCH SIMULATOR ▶</button>
+        </div>
+
+        <!-- Mission 2: Scanner -->
+        <div class="mission-card" data-mission="scanner">
+          <div class="mission-status-pill">TRIAL 02</div>
+          <div class="mission-card-icon">🪐</div>
+          <h3 class="mission-name">Solar System Scanner & Quiz</h3>
+          <p class="mission-desc">Orbit our solar system, scan Mars, Jupiter, Saturn and Earth, and solve the Cadet Astronomy Quiz!</p>
+          <div class="mission-meta-strip">
+            <span class="reward">+300 XP</span>
+            <span class="badge-tag">🪐 Cosmic Scholar</span>
+          </div>
+          <button class="card-launch-btn">SCAN WORLDS ▶</button>
+        </div>
+
+        <!-- Mission 3: Spacewalk -->
+        <div class="mission-card" data-mission="spacewalk">
+          <div class="mission-status-pill">TRIAL 03</div>
+          <div class="mission-card-icon">👨‍🚀</div>
+          <h3 class="mission-name">Spacewalk EVA Satellite Repair</h3>
+          <p class="mission-desc">Venture outside the space station airlock to align the photovoltaic solar wings and restore power circuits.</p>
+          <div class="mission-meta-strip">
+            <span class="reward">+350 XP</span>
+            <span class="badge-tag">👨‍🚀 EVA Spacewalker</span>
+          </div>
+          <button class="card-launch-btn">ENTER AIRLOCK ▶</button>
+        </div>
+
+        <!-- Mission 4: Defense -->
+        <div class="mission-card" data-mission="defense">
+          <div class="mission-status-pill">TRIAL 04</div>
+          <div class="mission-card-icon">🛡️</div>
+          <h3 class="mission-name">Lunar Dome Meteor Shield</h3>
+          <p class="mission-desc">Man the laser defense cannon and blast incoming space meteorites to protect the Believers Moon Base!</p>
+          <div class="mission-meta-strip">
+            <span class="reward">+400 XP</span>
+            <span class="badge-tag">🛡️ Planetary Guardian</span>
+          </div>
+          <button class="card-launch-btn">FIRE LASERS ▶</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SCREEN 5: ACTIVE MISSION GAMEPLAY CONTAINER ==================== -->
+  <section id="view-gameplay" class="view-screen">
+    <div id="active-game-container" class="active-game-wrap"></div>
+  </section>
+
+  <!-- ==================== SCREEN 6: CERTIFIED JUNIOR ASTRONAUT LICENSE ==================== -->
+  <section id="view-license" class="view-screen">
+    <div class="license-screen-wrap">
+      <div class="license-card-container" id="printable-license">
+        <div class="license-border-glow">
+          <div class="license-header">
+            <div class="agency-logo">
+              <img src="assets/believers-logo.jpg" alt="Believers" class="cert-logo-img">
+            </div>
+            <div class="agency-titles">
+              <h3>INTERNATIONAL SPACE ADMINISTRATION</h3>
+              <h2>OFFICIAL JUNIOR ASTRONAUT LICENSE</h2>
+              <span class="cert-code">SERIAL ID: BEL-NASA-2026-X89</span>
+            </div>
+          </div>
+
+          <div class="license-body">
+            <div class="license-photo-frame">
+              <img src="assets/mascot.jpg" alt="Astronaut Cadet" class="license-photo">
+              <div class="hologram-stamp">OFFICIAL<br>VERIFIED</div>
+            </div>
+
+            <div class="license-info-table">
+              <div class="info-row">
+                <span class="info-lbl">CADET CALLSIGN:</span>
+                <span id="cert-cadet-name" class="info-val highlight">Cadet Orion</span>
+              </div>
+              <div class="info-row">
+                <span class="info-lbl">CADET RANK:</span>
+                <span id="cert-cadet-rank" class="info-val">Junior Space Cadet</span>
+              </div>
+              <div class="info-row">
+                <span class="info-lbl">FLIGHT EXPERIENCE:</span>
+                <span id="cert-cadet-xp" class="info-val">150 XP</span>
+              </div>
+              <div class="info-row">
+                <span class="info-lbl">EARNED BADGES:</span>
+                <span id="cert-badges-count" class="info-val">1 Badges</span>
+              </div>
+              <div class="info-row">
+                <span class="info-lbl">COMMISSION DATE:</span>
+                <span id="cert-date" class="info-val">November 1, 2026</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="license-footer">
+            <div class="cert-seal">
+              <img src="assets/badge.jpg" alt="Academy Seal" class="seal-img">
+            </div>
+            <div class="cert-endorsement">
+              "This certifies that the named cadet has demonstrated high courage, orbital navigation skills, and stellar curiosity in the Believers Space Training Academy."
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="license-actions">
+        <button id="license-print-btn" class="cyber-btn primary">🖨️ PRINT / SAVE ASTRONAUT LICENSE</button>
+        <button id="license-close-btn" class="cyber-btn">◄ RETURN TO COMMAND</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== MODAL: SETTINGS (TOP RIGHT CORNER) ==================== -->
+  <div id="settings-modal" class="modal-overlay hidden">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title-with-icon">
+          <span class="modal-icon">⚙️</span>
+          <h2>ACADEMY SETTINGS</h2>
+        </div>
+        <button id="close-settings-btn" class="modal-close-btn">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="setting-group">
+          <h3>🔊 AUDIO & SOUND FX</h3>
+          <div class="setting-row">
+            <label for="settings-sfx-vol">Sound Effects (SFX) Volume</label>
+            <input type="range" id="settings-sfx-vol" min="0" max="1" step="0.05" value="0.8" class="cyber-slider">
+          </div>
+          <div class="setting-row">
+            <label for="settings-music-vol">Cosmic Ambient Music Volume</label>
+            <input type="range" id="settings-music-vol" min="0" max="1" step="0.05" value="0.45" class="cyber-slider">
+          </div>
+          <div class="setting-row toggle-row">
+            <label for="settings-mute-toggle">Mute All Sounds</label>
+            <input type="checkbox" id="settings-mute-toggle" class="cyber-toggle">
+          </div>
+        </div>
+
+        <div class="setting-group">
+          <h3>👨‍🚀 CADET IDENTITY</h3>
+          <div class="setting-row">
+            <label for="settings-cadet-name">Change Astronaut Callsign (Name)</label>
+            <input type="text" id="settings-cadet-name" class="cyber-input" placeholder="Cadet Name">
+          </div>
+        </div>
+
+        <div class="setting-group">
+          <h3>🪐 LIVE 3D SPACE GRAPHICS</h3>
+          <p class="setting-desc">The 3D background dynamically renders planets (Earth, Mars, Jupiter, Saturn with rings), shooting stars, and 4,000+ stars using WebGL.</p>
+        </div>
+
+        <div class="setting-group danger-group">
+          <button id="settings-logout-btn" class="cyber-btn danger full-width">
+            <span>🚪 SWITCH CADET / LOGOUT</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL: BADGES INVENTORY ==================== -->
+  <div id="badges-drawer-modal" class="modal-overlay hidden">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title-with-icon">
+          <span class="modal-icon">🏅</span>
+          <h2>CADET ACHIEVEMENT BADGES</h2>
+        </div>
+        <button class="modal-close-btn" onclick="document.getElementById('badges-drawer-modal').classList.add('hidden')">✕</button>
+      </div>
+      <div class="modal-body">
+        <div id="badges-inventory" class="badges-grid-wrap"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL: PLANET SCANNED TELEMETRY CARD ==================== -->
+  <div id="planet-detail-modal" class="modal-overlay hidden">
+    <div class="modal-card planet-telemetry-card">
+      <div class="modal-header">
+        <h2 id="planet-modal-title">Earth (Our Home)</h2>
+        <button id="planet-card-close" class="modal-close-btn">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="planet-stat-grid">
+          <div class="p-stat"><span class="p-lbl">Diameter:</span><span id="planet-modal-dia" class="p-val">12,742 km</span></div>
+          <div class="p-stat"><span class="p-lbl">Temperature:</span><span id="planet-modal-temp" class="p-val">15°C</span></div>
+        </div>
+        <div class="planet-fact-banner">
+          <h4>🚀 ASTRONOMY SENSOR TELEMETRY:</h4>
+          <p id="planet-modal-fact">Loading planet data...</p>
+        </div>
+        <button class="cyber-btn primary full-width" onclick="document.getElementById('planet-detail-modal').classList.add('hidden')">ACKNOWLEDGE SENSOR REPORT</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Local Self-Contained Scripts -->
+  <script src="assets/three.min.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/space-engine.js"></script>
+  <script src="js/games/lander.js"></script>
+  <script src="js/games/scanner.js"></script>
+  <script src="js/games/spacewalk.js"></script>
+  <script src="js/games/defense.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
